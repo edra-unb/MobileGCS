@@ -1,2 +1,2 @@
 # MobileGCS
-Mobile Ground Control Station for our autonomous UAV's
+Mobile Ground Monitoring Station for our autonomous UAV's
