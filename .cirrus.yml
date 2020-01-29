@@ -1,114 +1,114 @@
-container:
-    image: cirrusci/android-sdk:29
-    kvm: true
-
-task:
-    name: Integration Tests (x86)
-    accel_check_script:
-        - sudo chown cirrus:cirrus /dev/kvm
-        - emulator -accel-check
-
-android_test_task:
-    start_emulator_background_script: emulator -avd test -no-audio -no-window
-    wait_for_emulator_to_boot_script: adb wait-for-device
-    test_script: gradle test
-
-build_and_test_task:
-  # instructions to build and test
-  binaries_artifacts:
-    path: "build/*"
-  always:
-    junit_artifacts:
-      path: "**/test-results/**/*.xml"
-      type: text/xml
-      format: junit
-
-task:
-  test_script: ./run_tests.sh
-  on_failure:
-    debug_script: ./print_additional_debug_info.sh
-  always:
-    test_reports_script: ./print_test_reports.sh
-
-task:
-  auto_cancellation: $CIRRUS_BRANCH != 'master' && $CIRRUS_BRANCH !=~ 'release/.*'
-  ...
-
-  # Define a node anywhere in YAML file to create an alias. Make sure the name doesn't clash with an existing keyword.
-regular_task_template: &REGULAR_TASK_TEMPLATE
-  only_if: $CIRRUS_BRANCH == 'master' || $CIRRUS_TAG != '' || $CIRRUS_PR != ''
-  env:
-    FRAMEWORK_PATH: "${HOME}/framework"
-  install_framework_script: curl https://example.com/framework.tar | tar -C "${FRAMEWORK_PATH}" -x
-
-task:
-  # This operator will insert REGULAR_TASK_TEMPLATE at this point in the task node.
-  << : *REGULAR_TASK_TEMPLATE
-  name: linux
-  container:
-    image: alpine:latest
-  test_script: ls "${FRAMEWORK_PATH}"
-
-task:
-  << : *REGULAR_TASK_TEMPLATE
-  name: osx
-  osx_instance:
-    image: mojave-xcode-10.2
-  test_script: ls -w "${FRAMEWORK_PATH}"
-container:
-  image: cirrusci/android-sdk:18
-  cpu: 4
-  memory: 10G
-
-check_android_task:
-  create_device_script:
-    echo no | avdmanager create avd --force
-        -n test
-        -k "system-images;android-18;default;armeabi-v7a"
-  start_emulator_background_script:
-    $ANDROID_HOME/emulator/emulator
-        -avd test
-        -no-audio
-        -no-window
-  wait_for_emulator_script:
-    - adb wait-for-device
-    - adb shell input keyevent 82
-  check_script: ./gradlew check connectedCheck
-
-
-  ontainer:
-  image: cirrusci/flutter:latest
-
-test_task:
-  pub_cache:
-    folder: ~/.pub-cache
-  test_script: flutter test
-
-
-container:
-  image: gradle:jdk8
-
-check_task:
-  gradle_cache:
-    folder: ~/.gradle/caches
-  check_script: gradle check
-  cleanup_before_cache_script:
-    - rm -rf ~/.gradle/caches/$GRADLE_VERSION/
-    - rm -rf ~/.gradle/caches/transforms-1
-    - rm -rf ~/.gradle/caches/journal-1
-    - rm -rf ~/.gradle/caches/jars-3/*/buildSrc.jar
-    - find ~/.gradle/caches/ -name "*.lock" -type f -delete
-
-junit_test_task:
-  junit_script: <replace this comment with instructions to run the test suites>
-  always:
-    junit_result_artifacts:
-      path: "**/test-results/**/*.xml"
-      format: junit
-      type: text/xml
-
-container:
-  image: cirrusci/android-sdk:27
-
-check_android_task:
-  check_script: ./gradlew check connectedCheck
+# container:
+#     image: cirrusci/android-sdk:29
+#     kvm: true
+#
+# task:
+#     name: Integration Tests (x86)
+#     accel_check_script:
+#         - sudo chown cirrus:cirrus /dev/kvm
+#         - emulator -accel-check
+#
+# android_test_task:
+#     start_emulator_background_script: emulator -avd test -no-audio -no-window
+#     wait_for_emulator_to_boot_script: adb wait-for-device
+#     test_script: gradle test
+#
+# build_and_test_task:
+#   # instructions to build and test
+#   binaries_artifacts:
+#     path: "build/*"
+#   always:
+#     junit_artifacts:
+#       path: "**/test-results/**/*.xml"
+#       type: text/xml
+#       format: junit
+#
+# task:
+#   test_script: ./run_tests.sh
+#   on_failure:
+#     debug_script: ./print_additional_debug_info.sh
+#   always:
+#     test_reports_script: ./print_test_reports.sh
+#
+# task:
+#   auto_cancellation: $CIRRUS_BRANCH != 'master' && $CIRRUS_BRANCH !=~ 'release/.*'
+#   ...
+#
+#   # Define a node anywhere in YAML file to create an alias. Make sure the name doesn't clash with an existing keyword.
+# regular_task_template: &REGULAR_TASK_TEMPLATE
+#   only_if: $CIRRUS_BRANCH == 'master' || $CIRRUS_TAG != '' || $CIRRUS_PR != ''
+#   env:
+#     FRAMEWORK_PATH: "${HOME}/framework"
+#   install_framework_script: curl https://example.com/framework.tar | tar -C "${FRAMEWORK_PATH}" -x
+#
+# task:
+#   # This operator will insert REGULAR_TASK_TEMPLATE at this point in the task node.
+#   << : *REGULAR_TASK_TEMPLATE
+#   name: linux
+#   container:
+#     image: alpine:latest
+#   test_script: ls "${FRAMEWORK_PATH}"
+#
+# task:
+#   << : *REGULAR_TASK_TEMPLATE
+#   name: osx
+#   osx_instance:
+#     image: mojave-xcode-10.2
+#   test_script: ls -w "${FRAMEWORK_PATH}"
+# container:
+#   image: cirrusci/android-sdk:18
+#   cpu: 4
+#   memory: 10G
+#
+# check_android_task:
+#   create_device_script:
+#     echo no | avdmanager create avd --force
+#         -n test
+#         -k "system-images;android-18;default;armeabi-v7a"
+#   start_emulator_background_script:
+#     $ANDROID_HOME/emulator/emulator
+#         -avd test
+#         -no-audio
+#         -no-window
+#   wait_for_emulator_script:
+#     - adb wait-for-device
+#     - adb shell input keyevent 82
+#   check_script: ./gradlew check connectedCheck
+#
+#
+#   ontainer:
+#   image: cirrusci/flutter:latest
+#
+# test_task:
+#   pub_cache:
+#     folder: ~/.pub-cache
+#   test_script: flutter test
+#
+#
+# container:
+#   image: gradle:jdk8
+#
+# check_task:
+#   gradle_cache:
+#     folder: ~/.gradle/caches
+#   check_script: gradle check
+#   cleanup_before_cache_script:
+#     - rm -rf ~/.gradle/caches/$GRADLE_VERSION/
+#     - rm -rf ~/.gradle/caches/transforms-1
+#     - rm -rf ~/.gradle/caches/journal-1
+#     - rm -rf ~/.gradle/caches/jars-3/*/buildSrc.jar
+#     - find ~/.gradle/caches/ -name "*.lock" -type f -delete
+#
+# junit_test_task:
+#   junit_script: <replace this comment with instructions to run the test suites>
+#   always:
+#     junit_result_artifacts:
+#       path: "**/test-results/**/*.xml"
+#       format: junit
+#       type: text/xml
+#
+# container:
+#   image: cirrusci/android-sdk:27
+#
+# check_android_task:
+#   check_script: ./gradlew check connectedCheck
