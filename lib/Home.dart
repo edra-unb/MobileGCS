@@ -11,60 +11,69 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("EDRApp",
-            style: TextStyle(
-                fontSize: 20,
-                color: Colors.black
-            ),
+      backgroundColor: Color(0xFF363435),
+      appBar: AppBar(
+        title: Text("Mobile GMS",
+          style: TextStyle(
+              fontSize: 20,
+              color: Color(0xFF00b8ea)
           ),
-          backgroundColor: Colors.green,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.more_vert),
-              onPressed: (){},
+        ),
+        backgroundColor: Color(0xFF363435),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.more_vert),
+            color: Color(0xFF00b8ea),
+            onPressed: (){},
+          )
+        ],
+      ),
+      body: Container(
+        padding: EdgeInsets.all(16),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Color(0xFF00b8ea),
+            border: Border.all(width: 3, color: Color(0xFF363435)),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                TextField(
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+                    hintText: "nome da imagem"
+                  ),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              //crossAxisAlignment: CrossAxisAlignment.center,
+
+              children: <Widget>[
+                Expanded(
+                  child: Image.asset("image/logo.png",
+                  //width: 200,
+                  //height: 150,
+                  ),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                BottomAppBar(
+                  color: Color(0xFF363435),
+
+                )
+              ],
             )
           ],
         ),
-        body: Container(
-          padding: EdgeInsets.all(16),
-          width: double.infinity,
-          decoration: BoxDecoration(
-            border: Border.all(width: 3, color: Colors.green),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text("edit text")
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text("imagem")
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  RaisedButton(
-                    child: Text("botão 1"),
-                    onPressed: null,
-                  ),
-                  RaisedButton(
-                    child: Text("botão 2"),
-                    onPressed: null,
-                  )
-                ],
-              )
-            ],
-          ),
-        )
+      )
     );
   }
 }
