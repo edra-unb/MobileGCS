@@ -1,5 +1,9 @@
 container:
     image: cirrusci/flutter:latest
+    # default: 2 CPUs; 4 GB of memory
+    # maximum: 8 CPUs; 24 GB of memory.
+    cpu: 2
+    memory: 4G
 
 flutter_analyze_task:
     test_script: flutter analyze
@@ -66,6 +70,7 @@ flutter_test_task:
 #   osx_instance:
 #     image: mojave-xcode-10.2
 #   test_script: ls -w "${FRAMEWORK_PATH}"
+
 # container:
 #   image: cirrusci/android-sdk:18
 #   cpu: 4
@@ -85,6 +90,7 @@ flutter_test_task:
 #     - adb wait-for-device
 #     - adb shell input keyevent 82
 #   check_script: ./gradlew check connectedCheck
+
 #
 #
 #
