@@ -1,3 +1,10 @@
+test_task:
+  container:
+    image: cirrusci/flutter:stable
+  test_script: flutter analyze
+
+
+
 # container:
 #     image: cirrusci/android-sdk:29
 #     kvm: true
