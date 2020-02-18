@@ -7,7 +7,7 @@ flutter_analyze_task:
 flutter_test_task:
   pub_cache:
     folder: ~/.pub-cache
-  test_script: flutter test
+  test_script: flutter pub get; flutter test
 
 # container:
 #     image: cirrusci/android-sdk:29
