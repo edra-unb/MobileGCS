@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 
 class Home extends StatefulWidget {
@@ -24,22 +23,21 @@ class _HomeState extends State<Home> {
           backgroundColor: Color(0xFF3f3f95),
           actions: <Widget>[
             IconButton(
+              icon: Icon(Icons.videocam),
+              color: Color(0xFF008d35),
+              onPressed: (){},
+            ),
+            IconButton(
               icon: Icon(Icons.more_vert),
               color: Color(0xFF008d35),
               onPressed: (){},
             )
           ],
         ),
-        body: Container(
-          padding: EdgeInsets.all(16),
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Color(0xFF3f3f95),
-            border: Border.all(width: 3, color: Color(0xFF008d35)),
-          ),
+        body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +99,7 @@ class _HomeState extends State<Home> {
                   )
                 ],
               ),
-          ]
+           ]
           ),
         )
     );
