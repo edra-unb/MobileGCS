@@ -25,6 +25,21 @@ class _HomeState extends State<Home> {
     setState(() {
       _image = selectedImage;
     });
+  
+  }
+
+  Future _uploadImage() async{
+
+    //Reference file
+    FirebaseStorage storage = FirebaseStorage.instance;
+    StorageReference rootFolder = storage.ref();
+    StorageReference file = rootFolder
+      .child("image")
+      .child("imageTest.jpg");
+
+      //Upload image
+      file.putFile(_image);
+
   }
 
   @override
@@ -108,7 +123,9 @@ class _HomeState extends State<Home> {
                   ),
                   Row(
                     children: <Widget>[
-                      const MaterialButton(onPressed: null,
+                      MaterialButton(onPressed: (){
+                        _uploadImage();
+                      },
                         child: Text('Next',
                           style: TextStyle(
                               fontSize: 20,
