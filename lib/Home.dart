@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
         backgroundColor: Color(0xFF3f3f95),
         appBar: AppBar(
-          title: Text("Mobile GMS",
+          title: Text("Mobile_GMS",
             style: TextStyle(
                 fontSize: 20,
                 color: Color(0xFF008d35)
@@ -63,7 +64,7 @@ class _HomeState extends State<Home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Image.asset("images/logo.jpg",
+                  Image.asset("images/logo.png",
                     width: 320,
                     height: 320,
                   )
