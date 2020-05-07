@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class Home extends StatefulWidget {
   @override
@@ -10,6 +12,20 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  File _image;
+
+  Future _recoverImage(bool cam) async{
+
+    File selectedImage;
+    if(cam){
+      selectedImage = await ImagePicker.pickImage(source: ImageSource.camera);
+    }
+
+    setState(() {
+      _image = selectedImage;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +40,13 @@ class _HomeState extends State<Home> {
           ),
           backgroundColor: Color(0xFF3f3f95),
           actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.photo_camera),
+              color: Color(0xFF008d35),
+              onPressed: (){
+                _recoverImage(true);
+              },
+            ),
             IconButton(
               icon: Icon(Icons.more_vert),
               color: Color(0xFF008d35),
@@ -61,39 +84,36 @@ class _HomeState extends State<Home> {
                   )
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
+              
+              //
+              _image == null
+              ? Container(
+                child:
                   Image.asset("images/logo.png",
-                    width: 320,
-                    height: 320,
                   )
-                ],
-              ),
+                )
+                : Image.file(_image),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   const MaterialButton(onPressed: null,
-                    elevation: 20,
-                    color: Colors.red,
                     child: Text('Back',
                       style: TextStyle(
                         fontSize: 20,
                         color: Color(0xFF008d35),
-                          fontWeight: FontWeight.bold
+                          fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                   Row(
                     children: <Widget>[
                       const MaterialButton(onPressed: null,
-                        elevation: 20,
-                        color: Colors.red,
                         child: Text('Next',
                           style: TextStyle(
                               fontSize: 20,
                               color: Color(0xFF008d35),
-                              fontWeight: FontWeight.bold
+                              fontWeight: FontWeight.bold,
                           ),
                         ),
                       )
