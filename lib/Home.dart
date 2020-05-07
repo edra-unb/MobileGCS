@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -14,7 +13,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
         backgroundColor: Color(0xFF3f3f95),
         appBar: AppBar(
-          title: Text("Mobile GMS",
+          title: Text("Mobile_GMS",
             style: TextStyle(
                 fontSize: 20,
                 color: Color(0xFF008d35)
@@ -23,7 +22,7 @@ class _HomeState extends State<Home> {
           backgroundColor: Color(0xFF3f3f95),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.videocam),
+              icon: Icon(Icons.photo_camera),
               color: Color(0xFF008d35),
               onPressed: (){},
             ),
@@ -34,10 +33,15 @@ class _HomeState extends State<Home> {
             )
           ],
         ),
-        body: SingleChildScrollView(
+        body: Container(
+          padding: EdgeInsets.all(16),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Color(0xFF3f3f95),
+            border: Border.all(width: 3, color: Color(0xFF008d35)),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +65,7 @@ class _HomeState extends State<Home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Image.asset("images/logo.jpg",
+                  Image.asset("images/logo.png",
                     width: 320,
                     height: 320,
                   )
@@ -71,35 +75,30 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   const MaterialButton(onPressed: null,
-                    elevation: 20,
-                    color: Colors.red,
                     child: Text('Back',
                       style: TextStyle(
                         fontSize: 20,
                         color: Color(0xFF008d35),
-                          fontWeight: FontWeight.bold
+                          fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                   Row(
                     children: <Widget>[
                       const MaterialButton(onPressed: null,
-                        elevation: 20,
-                        color: Colors.red,
                         child: Text('Next',
                           style: TextStyle(
                               fontSize: 20,
                               color: Color(0xFF008d35),
-                              fontWeight: FontWeight.bold
+                              fontWeight: FontWeight.bold,
                           ),
                         ),
                       )
-
                     ],
                   )
                 ],
               ),
-           ]
+          ]
           ),
         )
     );
