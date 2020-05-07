@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
@@ -14,6 +12,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   File _image;
+  String _statusUpload = "";
 
   Future _recoverImage(bool cam) async{
 
@@ -38,14 +37,28 @@ class _HomeState extends State<Home> {
       .child("imageTest.jpg");
 
       //Upload image
-      file.putFile(_image);
+      StorageUploadTask task = file.putFile(_image);
+
+      //track upload progress
+      task.events.listen((StorageTaskEvent stotageEvent) {
+        if(stotageEvent.type == StorageTaskEventType.progress){
+          setState(() {
+            _statusUpload = "In progress.";
+          });
+        }else if(stotageEvent.type == StorageTaskEventType.success){
+          setState(() {
+            _statusUpload = "Upload successful.";
+          });
+        }
+       });
 
   }
 
   @override
-  Widget build(BuildContext context) {
+ Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xFF3f3f95),
+        
         appBar: AppBar(
           title: Text("Mobile_GMS",
             style: TextStyle(
@@ -69,50 +82,62 @@ class _HomeState extends State<Home> {
             )
           ],
         ),
+
+        //App body
         body: Container(
-          padding: EdgeInsets.all(16),
+
           width: double.infinity,
+          height: double.infinity,
+
           decoration: BoxDecoration(
             color: Color(0xFF3f3f95),
             border: Border.all(width: 3, color: Color(0xFF008d35)),
           ),
+
+         child: SingleChildScrollView(
+          padding: EdgeInsets.all(15),
+          scrollDirection: Axis.vertical,
+
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          child: TextField(
-                            decoration: InputDecoration(
-                            hintText: 'image name'
-                            )
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
+              //Image name alignment
+              Container(
+                height: 50,
+                padding: EdgeInsets.only(
+                  left: 75,
+                  right: 75,
+                ),
+                
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "image name",                    
+                  ),
+                )
               ),
-              
-              //
-              _image == null
-              ? Container(
-                child:
-                  Image.asset("images/logo.png",
-                  )
+                
+                _image == null
+                ? Container(
+                  child: 
+                    Image.asset("images/logo.png"),
                 )
                 : Image.file(_image),
 
+
+                _uploadImage == null
+                ? Container()
+                : Text(_statusUpload,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Color(0xFF00b8ea),
+                    ),),
+                
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  const MaterialButton(onPressed: null,
+                  MaterialButton(onPressed: null,
                     child: Text('Back',
                       style: TextStyle(
                         fontSize: 20,
@@ -134,13 +159,13 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       )
-
                     ],
                   )
                 ],
               ),
           ]
           ),
+         )
         )
     );
   }
