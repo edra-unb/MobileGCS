@@ -12,6 +12,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xFF3f3f95),
+        
         appBar: AppBar(
           title: Text("Mobile_GMS",
             style: TextStyle(
@@ -33,9 +34,13 @@ class _HomeState extends State<Home> {
             )
           ],
         ),
+
+        //App body
         body: Container(
 
           width: double.infinity,
+          height: double.infinity,
+
           decoration: BoxDecoration(
             color: Color(0xFF3f3f95),
             border: Border.all(width: 3, color: Color(0xFF008d35)),
@@ -43,13 +48,13 @@ class _HomeState extends State<Home> {
 
          child: SingleChildScrollView(
           padding: EdgeInsets.all(15),
-          //scrollDirection: Axis.vertical,
+          scrollDirection: Axis.vertical,
 
           child: Column(
             children: <Widget>[
-
+              //Image name alignment
               Container(
-
+                height: 50,
                 padding: EdgeInsets.only(
                   left: 75,
                   right: 75,
@@ -61,23 +66,18 @@ class _HomeState extends State<Home> {
                   ),
                 )
               ),
+              //Image alignment
+              Container(
+                height: 400,
+                padding: EdgeInsets.all(15),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    flex: 5,
-                    child: Image.asset("images/logo.png",
-                    )
-                  )
-                ],
+                child: Image.asset("images/logo.png"),
+
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const MaterialButton(onPressed: null,
                     child: Text('Back',
