@@ -43,34 +43,25 @@ class _HomeState extends State<Home> {
 
          child: SingleChildScrollView(
           padding: EdgeInsets.all(15),
-          scrollDirection: Axis.vertical,
+          //scrollDirection: Axis.vertical,
 
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          child: TextField(
-                            decoration: InputDecoration(
-                            hintText: 'image name'
-                            )
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
+
+              Container(
+
+                padding: EdgeInsets.only(
+                  left: 75,
+                  right: 75,
+                ),
+                
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "image name"
+                  ),
+                )
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.min,
@@ -114,10 +105,7 @@ class _HomeState extends State<Home> {
               ),
           ]
           ),
-        )
-
-
-
+         )
         )
     );
   }
